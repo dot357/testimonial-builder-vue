@@ -2,6 +2,8 @@
   <section class="wrapper" v-for="single in obj" :key="single.id">
 
     <div class="singleReview">
+      <span class="delete-button" @click="deleteItem(single.id)">X</span>
+      
       <div class="header">
         <div class="reviewStars">
           <i class="fas fa-star" aria-hidden="true"></i
@@ -28,12 +30,18 @@ export default {
   data() {
     return {};
   },
+  emits: ["item-delete"],
   props: {
     obj: {
       type: Object,
       default: [],
     },
   },
+  methods : {
+    deleteItem(id){
+      this.$emit('item-delete', id)
+    }
+  }
 };
 </script>
 
@@ -65,5 +73,31 @@ export default {
     text-align: center;
     box-shadow: 0 10px 7px #0000000d;
     margin: 1em;
+    position: relative;
+}
+
+.delete-button{
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  position: absolute;
+  right: -7px;
+  top: -15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+.delete-button:hover{
+  transition: opacity transform 0.3s ease;
+  transform: scale(0.95);
+  opacity: 0.8;
 }
 </style>

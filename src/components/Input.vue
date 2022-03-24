@@ -48,6 +48,12 @@
 
 <script>
 export default {
+  props:{
+    collectedTestimonialObject : {
+      type : Object,
+      default : []
+    }
+  },
   data() {
     return {
       isTemplate: false,
@@ -60,8 +66,8 @@ export default {
         {
           id: 1,
           place : 'Amazon',
-          title: "Test",
-          content: "Some content",
+          title: "Name Surname",
+          content: "Lorem ipsum dolor sit amed.",
         },
       ],
     };
@@ -110,6 +116,11 @@ export default {
        this.$emit('initiate-bulk-import', true)
     }
   },
+   watch : {
+   collectedTestimonialObject(value) {
+     this.testimonialsData = value
+   }
+ }
 };
 </script>
 

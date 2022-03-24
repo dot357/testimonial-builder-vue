@@ -11,15 +11,15 @@
 
     <div class="left">
       
-       <Input v-if="!show.bulkImport" @object-saved="gatherData($event)"  @initiate-bulk-import="this.show.bulkImport=$event"/>
+       <Input v-if="!show.bulkImport" :collectedTestimonialObject="testimonialObject" @object-saved="gatherData($event)"  @initiate-bulk-import="this.show.bulkImport=$event"/>
        <BulkImport v-if="show.bulkImport" @close-bulk-import="this.show.bulkImport=$event" @bulk-imported="testimonialObject = $event" />
        
     </div>
 
     <div class="right">
-      <font-awesome-icon icon="user-secret" />
+      
 
-      <ListViewer :obj="testimonialObject"/>
+      <ListViewer @item-delete="deleteItem($event)" @edit-item="editItem($event)" :obj="testimonialObject"/>
     </div>
     
     
@@ -50,6 +50,9 @@ export default {
    gatherData($event){
      
      this.testimonialObject = $event
+   },
+   deleteItem($event){
+     this.testimonialObject = this.testimonialObject.filter(e => e.id !== $event)
    },
    exportToHtml(){
      //solutionTwo
@@ -90,11 +93,7 @@ export default {
    
    }
  },
- watch : {
-   testimonialObject(value, oldValue) {
-     console.log(value, oldValue);
-   }
- }
+
  
 };
 </script>
